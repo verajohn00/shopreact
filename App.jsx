@@ -6,8 +6,8 @@ class App extends React.Component{
             <div>
                 Hola React
               </div>
-            );
-        }
-      }
+        );
+    }
+}
 
 export default App;
