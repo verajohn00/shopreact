@@ -6,9 +6,10 @@ var config ={
   output:{
     path: path.resolve(__dirname, './'),
     filename:'index.js'
-  },
+    },
   devServer:{
     inline: true,
+    historyApiFallback: true,
     port: 8080
   },
 

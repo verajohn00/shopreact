@@ -1,11 +1,10 @@
 import React from 'react';
+import Login from './components/Login.jsx';
 
 class App extends React.Component{
     render(){
         return(
-            <div>
-                Hola React
-              </div>
+            <div>Hola App</div>
         );
     }
 }
