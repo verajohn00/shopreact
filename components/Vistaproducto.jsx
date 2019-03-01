@@ -9,43 +9,45 @@ import { Link } from 'react-router-dom';
 
 class Vistaproducto extends React.Component{
     
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        console.log(props);
         this.state = {
-            data: [],
             url: "http://localhost/Api/"
         };
     }
         
-    /*componentDidMount(){
-        request.get(this.state.url+"Api/productos")
-            .end((er,res) => {
-            this.setState({ data : res.body });
-            console.log(this.state.data);   
-        })
-    }*/
+    componentDidMount(){
+        
+        const { handle } = this.props.match.params;
+        const { producto } = this.props.location.state;
+        this.state.producto = this.props.location.state;
+        //console.log(this.state.producto);
+    }
     
     render () {
+        const { producto } = this.props.location.state;
+        console.log(producto);
         
         return (
             <div className="container-fluid">        
             <div className="backwhite">
                 <div className="row">
                     <div className="col-12">
-                        <h3>elemento</h3>
+                        <h3>{producto.nombre}</h3>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12 col-sm-6">
-                        <img className="card-img-top" src="" alt="" />
+                        <img className="card-img-top" src={this.state.url+"/images/"+producto.imagen} alt="" />
                     </div>
                     <div className="col-12 col-sm-6">
                         <h3>
-                            Precio: Precio
+                            Precio: ${producto.precio}
                         </h3>
                         <br/>
                         <h4>
-                            Unidades disponibles: Cantidad
+                            Unidades disponibles: {producto.cantidad}
                         </h4>            
                     </div>
                 </div>

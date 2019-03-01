@@ -6,6 +6,7 @@
 import React from 'react';
 import * as request from 'superagent';
 import { Link } from 'react-router-dom';
+import Vistaproducto from './Vistaproducto.jsx';
 
 class Productos extends React.Component{
     
@@ -13,21 +14,43 @@ class Productos extends React.Component{
         super();
         this.state = {
             data: [],
-            url: "http://localhost/Api/"
+            tempValue: "",
+            input: '',
+            url: "http://xatsaautopartes.xyz/Api/"
         };
+        
+        this.handleChange = this.handleChange.bind(this);
+        this.addCarrito = this.addCarrito.bind(this);
     }
         
     componentDidMount(){
         request.get(this.state.url+"Api/productos")
             .end((er,res) => {
             this.setState({ data : res.body });
-            console.log(this.state.data);   
+            //console.log(this.state.data);               
+        })
+    }
+
+    handleChange(e) {
+          
+        this.setState({ tempValue: e.target.value });
+        //console.log(this.props.index);
+    }
+    
+    addCarrito(i){
+        console.log(i);
+        console.log(this.state.tempValue);
+    }
+    
+    onChangeHandler(e){
+        this.setState({
+            input: e.target.value,
         })
     }
     
     render () {
         
-        console.log('PLACES' + this.state.data);
+        //console.log('PLACES' + this.state.data);
 
         return (
             <div className="container-fluid">
@@ -39,14 +62,14 @@ class Productos extends React.Component{
                     </div>
                     <div className="col-6 float-right">
                         <h5>¿Qué estas buscando?</h5>
-                        <input type="text" placeholder="Buscar producto"/>
+                        <input type="text" value={this.state.input} onChange={this.onChangeHandler.bind(this)} placeholder="Buscar producto"/>
                     </div>
                 </div>
                 <div className="row scroll">
                     <div className="row fullwidth">
                         {
-                            this.state.data.map((product, index) => (
-                            <div className="col-12 col-sm-12 col-md-4" key="{index}">
+                            this.state.data.filter(product => this.state.input === '' || product.nombre.includes(this.state.input)).map((product, index) => (
+                            <div className="col-12 col-sm-12 col-md-4" key={index}>
                              <div className="card">
                                 <img className="card-img-top" src={ this.state.url+"images/"+product.imagen} alt={product.imagen}/>
                                 <div className="card-body">
@@ -56,10 +79,18 @@ class Productos extends React.Component{
                                       <br/>
                                       Unidades disponibles: {product.cantidad}
                                   </p>
-                                  <button className="btn btn-primary"><Link to="/vistaproducto">Ver más</Link></button>
+                                  <button className="btn btn-primary">
+                                    <Link to={{
+                                            pathname:"/vistaproducto",
+                                            state:{
+                                                producto: product
+                                            }
+                                        }}>
+                                        Ver más
+                                    </Link></button>
                                   <div className="float-right">
-                                    <button className="btn btn-warning">Añadir</button>                    
-                                    <input type="number" size="10"/>
+                                    <button className="btn btn-warning" onClick={() => this.addCarrito(index)}>Añadir</button>                    
+                                    <input type="number" size="10" onChange={ this.handleChange }/>
                                   </div>
                                 </div>
                             </div>
@@ -68,7 +99,6 @@ class Productos extends React.Component{
                         }
                     </div>
                 </div>
-
                 </div>
             </div>
         );
