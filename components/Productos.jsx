@@ -11,7 +11,9 @@ import Carrito from './Carrito.jsx';
 
 var crritoG = [];
 var totalG = 0.0;
-var url= "http://localhost/Api/";
+//var url= "http://localhost/Api/";
+var url= "http://xatsaautopartes.xyz/Api/";
+
 
 function updateState(cart,tota){
     console.log(tota);

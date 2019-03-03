@@ -17,7 +17,8 @@ class Carrito extends React.Component{
             carrito: [],
             tempValue: "",
             total: 0.0,
-            url: "http://localhost/Api/"
+            url: "http://xatsaautopartes.xyz/Api/"
+            //url: "http://localhost/Api/"
         };
 
         this.pagarCarrito = this.pagarCarrito.bind(this);
