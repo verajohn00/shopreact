@@ -9,7 +9,8 @@ class Login extends React.Component{
             mail:"",
             pass:"",
             error: false,
-            url: "http://localhost/Api/"
+            url: "http://xatsaautopartes.xyz/Api/"
+            //url: "http://localhost/Api/"
         };
 
         this.validar = this.validar.bind(this);
@@ -33,12 +34,12 @@ class Login extends React.Component{
     }
 
     handleChangeMail(e) {          
-        console.log(e.target.value);
+        this.setState({error: false});  
         this.setState({ mail: e.target.value });
     }
 
     handleChangePass(e) {          
-        console.log(e.target.value);
+        this.setState({error: false});  
         this.setState({ pass: e.target.value });
     }
 

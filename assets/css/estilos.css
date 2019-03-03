@@ -19,6 +19,10 @@ html,body{
     color: white;
 }
 
+.simple{
+    margin-left: 5px;
+}
+
 .container-fluid{
     min-height:100vh;
     background-image: url('/assets/images/login-fondo.jpg');

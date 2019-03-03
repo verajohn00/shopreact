@@ -33,7 +33,7 @@ class Vistaproducto extends React.Component{
             <div className="container-fluid">        
             <Navmenu />
             <br/>
-            <div className="backwhite">
+            <div className="backwhite padding">
                 <div className="row">
                     <div className="col-12">
                         <h3>{producto.nombre}</h3>
@@ -41,7 +41,7 @@ class Vistaproducto extends React.Component{
                 </div>
                 <div className="row">
                     <div className="col-12 col-sm-6">
-                        <img className="card-img-top" src={this.state.url+"/images/"+producto.imagen} alt="" />
+                        <img className="card-img-top simple" src={this.state.url+"/images/"+producto.imagen} alt="" />
                     </div>
                     <div className="col-12 col-sm-6">
                         <h3>

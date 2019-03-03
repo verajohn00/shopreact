@@ -9,10 +9,16 @@ import { Link } from 'react-router-dom';
 import Vistaproducto from './Vistaproducto.jsx';
 import Carrito from './Carrito.jsx';
 
+var crritoG = [];
+var totalG = 0.0;
+var url= "http://localhost/Api/";
+
 function updateState(cart,tota){
     console.log(tota);
-    this.setState({carrito:cart});
-    this.setState({total:tota});
+    //this.setState({carrito:cart});
+    //this.setState({total:tota});
+    crritoG = cart;
+    totalG = tota;
 }
 
 class Productos extends React.Component{
@@ -24,17 +30,18 @@ class Productos extends React.Component{
             tempValue: 0,
             input: '',
             text: "",
-            total: 0.0,
-            carrito: [],
-            url: "http://localhost/Api/"
+            totalP: 0.0,
+            carritoP: []
         };
         
         this.handleChange = this.handleChange.bind(this);
         this.addCarrito = this.addCarrito.bind(this);
+        crritoG = [];
+        totalG = 0.0;
     }
         
     componentDidMount(){
-        request.get(this.state.url+"Api/productos")
+        request.get(url+"Api/productos")
             .end((er,res) => {
             this.setState({ data : res.body });
         })
@@ -53,11 +60,11 @@ class Productos extends React.Component{
             alert("Elemento agregado");
             var precio = this.state.data[i].precio;
             var subtotal = precio * this.state.tempValue;
-            var totalTemp = subtotal + this.state.total;
-            this.setState({ total: totalTemp });
+            var totalTemp = subtotal + this.state.totalP;
+            this.setState({ totalP: totalTemp });
             var elemento = {"subtotal":subtotal, "q":this.state.tempValue, "producto":this.state.data[i]};
-            this.state.carrito.push(elemento);
-            updateState(this.state.carrito,totalTemp);
+            this.state.carritoP.push(elemento);
+            updateState(this.state.carritoP,totalTemp);
         }
     }
     
@@ -71,7 +78,7 @@ class Productos extends React.Component{
         
         return (
             <div className="container-fluid">
-                <Navmenu contador={this.state.carrito.length}/>
+                <Navmenu />
                 <br/>
                 <div className="padding backwhite">
                 <div className="row padding">
@@ -89,7 +96,7 @@ class Productos extends React.Component{
                             this.state.data.filter(product => this.state.input === '' || product.nombre.includes(this.state.input)).map((product, index) => (
                             <div className="col-12 col-sm-12 col-md-4" key={index}>
                              <div className="card">
-                                <img className="card-img-top" src={ this.state.url+"images/"+product.imagen} alt={product.imagen}/>
+                                <img className="card-img-top" src={ url+"images/"+product.imagen} alt={product.imagen}/>
                                 <div className="card-body">
                                   <h5 className="card-title">{product.nombre}</h5>
                                   <p className="card-text">
@@ -127,14 +134,7 @@ class Navmenu extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {
-            carrito : [],
-            total: 0,
-            url: "http://localhost/Api/"
-        };
-
-        updateState = updateState.bind(this);
-        
+        updateState = updateState.bind(this);        
     }
 
     render(){
@@ -144,12 +144,12 @@ class Navmenu extends React.Component{
             <ul className="mr-sm-2 inline">
                 <li><Link to="/productos"><span className="glyphicon glyphicon-search">Productos</span></Link></li>
                 <li><Link to={{
-                            pathname:"/carrito",
+                            pathname: "/carrito",
                             state:{
-                                carrito: this.state.carrito,
-                                total: this.state.total
+                                carrito: crritoG,//this.state.carrito,
+                                total: totalG//this.state.total
                             }
-                        }}><span className="glyphicon glyphicon-search">Carrito <span className="redColor">({this.state.carrito.length})</span></span></Link></li>
+                        }}><span className="glyphicon glyphicon-search">Carrito <span className="redColor">({crritoG.length})</span></span></Link></li>
                 <li><Link to="/"><span className="glyphicon glyphicon-search">Cerrar sesión</span></Link></li>
             </ul>
             </nav>
