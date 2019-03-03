@@ -6,6 +6,7 @@
 import React from 'react';
 import * as request from 'superagent';
 import { Link } from 'react-router-dom';
+import Navmenu from './Navmenu.jsx';
 
 class Vistaproducto extends React.Component{
     
@@ -13,7 +14,7 @@ class Vistaproducto extends React.Component{
         super(props);
         console.log(props);
         this.state = {
-            url: "http://localhost/Api/"
+            url: "http://xatsaautopartes.xyz/Api/"
         };
     }
         
@@ -22,7 +23,6 @@ class Vistaproducto extends React.Component{
         const { handle } = this.props.match.params;
         const { producto } = this.props.location.state;
         this.state.producto = this.props.location.state;
-        //console.log(this.state.producto);
     }
     
     render () {
@@ -31,6 +31,8 @@ class Vistaproducto extends React.Component{
         
         return (
             <div className="container-fluid">        
+            <Navmenu />
+            <br/>
             <div className="backwhite">
                 <div className="row">
                     <div className="col-12">
@@ -52,7 +54,7 @@ class Vistaproducto extends React.Component{
                     </div>
                 </div>
                 <div className="row padding">            
-                        <button className="btn btn-warning"><Link to="/productos">Regresar</Link></button>
+                    <Link className="btn btn-warning" to="/productos">Regresar</Link>
                 </div>
             </div>
         </div>
