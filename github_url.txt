@@ -1,0 +1,6 @@
+Liga GitHub:
+https://github.com/verajohn00/shopreact.git
+
+Credenciales:
+correo: correoprueba@mail.com
+pass: correo1234
